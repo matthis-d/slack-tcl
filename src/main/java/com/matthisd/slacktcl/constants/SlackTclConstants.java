@@ -12,4 +12,6 @@ public class SlackTclConstants {
 
     public static final String STATION_NAME_PATTERN = "^([\\w\\s]+)$";
 
+    public static final String DEFAULT_QUERY_URL = "https://download.data.grandlyon.com/ws/rdata/tcl_sytral.tclarret/all.json";
+
 }

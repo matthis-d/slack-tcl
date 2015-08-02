@@ -1,7 +1,7 @@
 # Slack TCL
 
 ## Goal
-Enable use of '/tcl' in Slack in order to get information about next buses times.
+Enable use of `/tcl` in Slack in order to get information about next buses times.
 
 ## Development
 This project is at the very beginning. There is still a lot of things to do.
