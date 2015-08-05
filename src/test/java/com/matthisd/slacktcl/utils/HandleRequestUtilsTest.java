@@ -1,6 +1,7 @@
 package com.matthisd.slacktcl.utils;
 
 import com.matthisd.slacktcl.domain.BusStation;
+import com.matthisd.slacktcl.domain.SlackRequest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -32,29 +33,12 @@ public class HandleRequestUtilsTest {
     @Test
     public void testGetBusStationFromText() {
 
-        String text = "gare de vaise 6";
-        BusStation busStation = HandleRequestUtils.getBusStationFromText(text);
+        String text = "Technoparc:6:Gare de Vaise";
+        SlackRequest slackRequest = HandleRequestUtils.getSlackRequestFromText(text);
 
-        Assert.assertEquals("Station should be \"gare de vaise\"", "gare de vaise", busStation.getStationName());
-        Assert.assertEquals("Bus number should be 6", Integer.valueOf(6), busStation.getBusNumber());
-
-        text = "technoparc 89";
-        busStation = HandleRequestUtils.getBusStationFromText(text);
-
-        Assert.assertEquals("Station should be \"technoparc\"", "technoparc", busStation.getStationName());
-        Assert.assertEquals("Bus number should be 89", Integer.valueOf(89), busStation.getBusNumber());
-
-        text = "sans souci";
-        busStation = HandleRequestUtils.getBusStationFromText(text);
-
-        Assert.assertEquals("Station should be \"sans souci\"", "sans souci", busStation.getStationName());
-        Assert.assertEquals("Bus number should be 6", Integer.valueOf(6), busStation.getBusNumber());
-
-        text = "89";
-        busStation = HandleRequestUtils.getBusStationFromText(text);
-
-        Assert.assertEquals("Station should be \"technoparc\"", "technoparc", busStation.getStationName());
-        Assert.assertEquals("Bus number should be 89", Integer.valueOf(89), busStation.getBusNumber());
+        Assert.assertEquals("Station should be \"Technoparc\"", "Technoparc", slackRequest.getStationName());
+        Assert.assertEquals("Bus number should be 6", "6", slackRequest.getBusNumber());
+        Assert.assertEquals("Destinatoin should be \"Gare de Vaise\"", "Gare de Vaise", slackRequest.getDirection());
 
     }
 

@@ -1,7 +1,7 @@
 package com.matthisd.slacktcl.utils;
 
 import com.matthisd.slacktcl.constants.SlackTclConstants;
-import com.matthisd.slacktcl.domain.BusStation;
+import com.matthisd.slacktcl.domain.SlackRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class HandleRequestUtils {
     }
 
 
-    public static BusStation getBusStationFromText(String text) {
+    public static SlackRequest getSlackRequestFromText(String text) {
 
         String trimmedText = text.trim();
 
@@ -47,33 +47,16 @@ public class HandleRequestUtils {
 
         if (fullMatcher.find()) {
             String stationName = fullMatcher.group(1);
-            Integer busNumber = Integer.valueOf(fullMatcher.group(2));
+            System.out.println(stationName);
+            String busNumber = fullMatcher.group(2);
+            System.out.println(busNumber);
+            String direction = fullMatcher.group(3);
+            System.out.println(direction);
 
-            return new BusStation(stationName, busNumber);
+            return new SlackRequest(stationName, busNumber, direction);
         }
 
-        // Test with only the bus number
-        Pattern numberPattern = Pattern.compile(SlackTclConstants.BUS_NUMBER_PATTERN);
-        Matcher numberMatcher = numberPattern.matcher(trimmedText);
-
-        if (numberMatcher.find()) {
-            Integer busNumber = Integer.valueOf(numberMatcher.group(1));
-
-            return new BusStation(busNumber);
-        }
-
-        // Test with the bus station name
-        Pattern stationPattern = Pattern.compile(SlackTclConstants.STATION_NAME_PATTERN);
-        Matcher stationMatcher = stationPattern.matcher(trimmedText);
-
-        if (stationMatcher.find()) {
-            String stationName = stationMatcher.group(1);
-
-            return new BusStation(stationName);
-        }
-
-        // None of above worked: return a default station
-        return new BusStation();
+        return new SlackRequest();
 
     }
 

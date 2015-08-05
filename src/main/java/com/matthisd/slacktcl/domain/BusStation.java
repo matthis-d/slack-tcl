@@ -1,31 +1,36 @@
 package com.matthisd.slacktcl.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.matthisd.slacktcl.constants.SlackTclConstants;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BusStation {
 
+    @JsonProperty(SlackTclConstants.JSON_STATION_ID)
+    private String id;
+
+    @JsonProperty(SlackTclConstants.JSON_STATION_NAME)
     private String stationName;
 
-    private Integer busNumber;
+    @JsonProperty(SlackTclConstants.JSON_STATION_SERVICE)
+    private String service;
 
     public BusStation() {
-        this.stationName = SlackTclConstants.DEFAULT_BUS_STOP;
-        this.busNumber = SlackTclConstants.DEFAULT_BUS_NUMBER;
     }
 
-    public BusStation(String stationName) {
-        this();
+    public BusStation(String id, String stationName, String service) {
+        this.id = id;
         this.stationName = stationName;
+        this.service = service;
     }
 
-    public BusStation(Integer busNumber) {
-        this();
-        this.busNumber = busNumber;
+    public String getId() {
+        return id;
     }
 
-    public BusStation(String stationName, Integer busNumber) {
-        this.stationName = stationName;
-        this.busNumber = busNumber;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getStationName() {
@@ -36,20 +41,22 @@ public class BusStation {
         this.stationName = stationName;
     }
 
-    public Integer getBusNumber() {
-        return busNumber;
+    public String getService() {
+        return service;
     }
 
-    public void setBusNumber(Integer busNumber) {
-        this.busNumber = busNumber;
+    public void setService(String service) {
+        this.service = service;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("BusStation{");
-        sb.append("stationName='").append(stationName).append('\'');
-        sb.append(", busNumber=").append(busNumber);
-        sb.append('}');
-        return sb.toString();
+    /**
+     * Indicates if the bus number does a stop at this station.
+     * @param busNumber The bus number to test.
+     * @return true if the bus is stoping here, false otherwise.
+     */
+    public Boolean isServing(String busNumber) {
+        return this.service.contains(busNumber);
     }
+
+
 }
