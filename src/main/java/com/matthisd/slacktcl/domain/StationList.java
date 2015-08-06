@@ -1,55 +1,58 @@
 package com.matthisd.slacktcl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Domain class to represent the API response for a list of stations
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StationList {
 
-    private List<String> fields;
+    /**
+     * List of all stations
+     */
+    private List<BusStation> values;
 
-    @JsonProperty("nb_results")
-    private Integer nbResults;
-
-    private List<List<String>> values;
-
+    /**
+     * Default constructor
+     */
     public StationList() {
-        this.fields = new ArrayList<>();
         this.values = new ArrayList<>();
     }
 
-    public StationList(List<String> fields, Integer nbResults, List<List<String>> values) {
-        this.fields = fields;
-        this.nbResults = nbResults;
+    /**
+     * Default constructor with values to set.
+     * @param values List of stations to initialize
+     */
+    public StationList(List<BusStation> values) {
         this.values = values;
     }
 
-    public List<String> getFields() {
-        return fields;
-    }
-
-    public void setFields(List<String> fields) {
-        this.fields = fields;
-    }
-
-    public Integer getNbResults() {
-        return nbResults;
-    }
-
-    public void setNbResults(Integer nbResults) {
-        this.nbResults = nbResults;
-    }
-
-    public List<List<String>> getValues() {
+    public List<BusStation> getValues() {
         return values;
     }
 
-    public void setValues(List<List<String>> values) {
+    public void setValues(List<BusStation> values) {
         this.values = values;
     }
 
+    /**
+     * Add a bus station to the list of values.
+     * @param busStation the station to add.
+     */
+    public void addValue(BusStation busStation) {
+        this.values.add(busStation);
+    }
+
+    /**
+     * Remove a bus station from values.
+     * @param busStation the station to remove from the list.
+     */
+    public void removeValue(BusStation busStation) {
+        this.values.remove(busStation);
+    }
 
 }
