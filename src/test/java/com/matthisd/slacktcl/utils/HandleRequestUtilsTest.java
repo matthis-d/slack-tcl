@@ -1,33 +1,24 @@
 package com.matthisd.slacktcl.utils;
 
-import com.matthisd.slacktcl.domain.BusStation;
 import com.matthisd.slacktcl.domain.SlackRequest;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class HandleRequestUtilsTest {
 
     @Test
-    public void testConvertStringBody() {
+    public void testConvertStringBody() throws UnsupportedEncodingException {
 
-        String body = "" +
-                "token=gIkuvaNzQIHg97ATvDxqgjtO\n" +
-                "team_id=T0001\n" +
-                "team_domain=example\n" +
-                "channel_id=C2147483705\n" +
-                "channel_name=test\n" +
-                "user_id=U2147483697\n" +
-                "user_name=Steve\n" +
-                "command=/weather\n" +
-                "text=94070";
+        String body = "agent=webapp&command=%2Ftcl&text=&channel=C02NXAH5H&token=xoxs-2779357159-2779357167-4209109658-d0e00b20c5&set_active=true&_attempts=1";
 
         Map<String, String> response = HandleRequestUtils.convertStringBody(body);
 
         Assert.assertFalse("Response shouldn't be empty", response.isEmpty());
-        Assert.assertEquals("The command should be /weather", "/weather", response.get("command"));
-        Assert.assertEquals("The text should be 94070", "94070", response.get("text"));
+        Assert.assertEquals("The command should be /tcl", "/tcl", response.get("command"));
+        Assert.assertEquals("The text should be empty", "", response.get("text"));
     }
 
     @Test
