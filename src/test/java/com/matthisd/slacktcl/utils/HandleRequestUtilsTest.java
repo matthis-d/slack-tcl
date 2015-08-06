@@ -40,6 +40,12 @@ public class HandleRequestUtilsTest {
         Assert.assertEquals("Bus number should be 6", "6", slackRequest.getBusNumber());
         Assert.assertEquals("Destinatoin should be \"Gare de Vaise\"", "Gare de Vaise", slackRequest.getDirection());
 
+        text = "A.Thomas - INSERM:C16:Charpennes";
+        slackRequest = HandleRequestUtils.getSlackRequestFromText(text);
+        Assert.assertEquals("Station should be \"A.Thomas - INSERM\"", "A.Thomas - INSERM", slackRequest.getStationName());
+        Assert.assertEquals("Bus number should be C16", "C16", slackRequest.getBusNumber());
+        Assert.assertEquals("Destinatoin should be \"Charpennes\"", "Charpennes", slackRequest.getDirection());
+
     }
 
 

@@ -2,6 +2,7 @@ package com.matthisd.slacktcl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.StringUtils;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StationTime {
@@ -66,5 +67,17 @@ public class StationTime {
         sb.append(", ligne='").append(ligne).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    public Boolean isGoingTo(String direction) {
+        return StringUtils.containsIgnoreCase(this.getDirection(), direction.trim());
+    }
+
+    public Boolean isBusStopping(String busNumber) {
+        return StringUtils.containsIgnoreCase(this.getLigne(), busNumber.trim());
+    }
+
+    public Boolean isBusStoppingAndGoingTo(String busNumber, String direction) {
+        return this.isGoingTo(direction) && this.isBusStopping(busNumber);
     }
 }

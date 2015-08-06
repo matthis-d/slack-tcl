@@ -3,6 +3,7 @@ package com.matthisd.slacktcl.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.matthisd.slacktcl.constants.SlackTclConstants;
+import org.apache.commons.lang3.StringUtils;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BusStation {
@@ -52,11 +53,20 @@ public class BusStation {
     /**
      * Indicates if the bus number does a stop at this station.
      * @param busNumber The bus number to test.
-     * @return true if the bus is stoping here, false otherwise.
+     * @return true if the bus is stopping here, false otherwise.
      */
     public Boolean isServing(String busNumber) {
-        return this.service.contains(busNumber);
+
+        return StringUtils.containsIgnoreCase(this.service, busNumber);
     }
 
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("BusStation{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", stationName='").append(stationName).append('\'');
+        sb.append(", service='").append(service).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

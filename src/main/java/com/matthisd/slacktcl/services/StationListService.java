@@ -1,9 +1,9 @@
 package com.matthisd.slacktcl.services;
 
 import com.matthisd.slacktcl.domain.StationList;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Service("stationListService")
