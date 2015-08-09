@@ -2,6 +2,7 @@ package com.matthisd.slacktcl.controllers;
 
 import com.matthisd.slacktcl.constants.SlackTclConstants;
 import com.matthisd.slacktcl.domain.*;
+import com.matthisd.slacktcl.services.SlackRequestService;
 import com.matthisd.slacktcl.services.StationListService;
 import com.matthisd.slacktcl.services.StationTimesListService;
 import com.matthisd.slacktcl.utils.HandleRequestUtils;
@@ -30,6 +31,9 @@ public class SlackRequestController {
     @Autowired
     private StationTimesListService stationTimesListService;
 
+    @Autowired
+    private SlackRequestService slackRequestService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String sayHello() {
 
@@ -51,6 +55,10 @@ public class SlackRequestController {
 
         // Convert to Slack request
         SlackRequest slackRequest = HandleRequestUtils.getSlackRequestFromText(slackRequestMap.get("text"));
+
+        // Save the request in the database
+        this.slackRequestService.save(slackRequest);
+
         String busNumber = slackRequest.getBusNumber();
         String direction = slackRequest.getDirection();
 

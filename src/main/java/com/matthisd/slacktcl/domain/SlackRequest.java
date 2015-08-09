@@ -1,6 +1,11 @@
 package com.matthisd.slacktcl.domain;
 
+import org.springframework.data.annotation.Id;
+
 public class SlackRequest {
+
+    @Id
+    private String id;
 
     private String stationName;
 
@@ -15,6 +20,14 @@ public class SlackRequest {
         this.stationName = stationName;
         this.busNumber = busNumber;
         this.direction = direction;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getBusNumber() {
