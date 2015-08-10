@@ -1,13 +1,17 @@
+import org.jcp.xml.dsig.internal.dom.DOMUtils
+
 buildscript {
     ext {
         springBootVersion = '1.2.5.RELEASE'
     }
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
         classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+        classpath("net.researchgate:gradle-release:2.2.0")
     }
 }
 
@@ -15,11 +19,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
-apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'net.researchgate.release'
 
 jar {
     baseName = 'slack-tcl'
-    version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
