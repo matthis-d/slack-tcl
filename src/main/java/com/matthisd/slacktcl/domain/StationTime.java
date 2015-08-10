@@ -69,14 +69,40 @@ public class StationTime {
         return sb.toString();
     }
 
+    /**
+     * Determines if the bus is going to the given direction.
+     * @param direction the direction to check.
+     * @return true if it is serving it or if the direction is empty, false otherwise.
+     */
     public Boolean isGoingTo(String direction) {
+
+        if (StringUtils.isEmpty(direction)) {
+            return Boolean.TRUE;
+        }
+
         return StringUtils.containsIgnoreCase(this.getDirection(), direction.trim());
     }
 
+    /**
+     * Determines if the bus is stopping at this station.
+     * @param busNumber the bus number to check.
+     * @return true if the bus is stopping here or if it is empty, false otherwise.
+     */
     public Boolean isBusStopping(String busNumber) {
+
+        if (StringUtils.isEmpty(busNumber)) {
+            return Boolean.TRUE;
+        }
+
         return StringUtils.containsIgnoreCase(this.getLigne(), busNumber.trim());
     }
 
+    /**
+     * Determines if the bus is stopping here and goes to the given direction.
+     * @param busNumber the bus number to check.
+     * @param direction the direction to check.
+     * @return the combination of {@link #isBusStopping(String)} and {@link #isGoingTo(String)}.
+     */
     public Boolean isBusStoppingAndGoingTo(String busNumber, String direction) {
         return this.isGoingTo(direction) && this.isBusStopping(busNumber);
     }

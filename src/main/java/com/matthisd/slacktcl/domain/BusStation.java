@@ -52,10 +52,15 @@ public class BusStation {
 
     /**
      * Indicates if the bus number does a stop at this station.
-     * @param busNumber The bus number to test.
-     * @return true if the bus is stopping here, false otherwise.
+     * @param busNumber The bus number to test. If it is empty, return true
+     * @return true if the bus is stopping here or not given (empty or null), false otherwise.
      */
     public Boolean isServing(String busNumber) {
+
+        // If bus number is empty, we consider the station is serving the bus
+        if (StringUtils.isEmpty(busNumber)) {
+            return Boolean.TRUE;
+        }
 
         return StringUtils.containsIgnoreCase(this.service, busNumber);
     }
