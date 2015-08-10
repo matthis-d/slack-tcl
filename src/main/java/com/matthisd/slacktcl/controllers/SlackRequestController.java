@@ -2,12 +2,12 @@ package com.matthisd.slacktcl.controllers;
 
 import com.matthisd.slacktcl.constants.SlackTclConstants;
 import com.matthisd.slacktcl.domain.*;
-import com.matthisd.slacktcl.enums.RequestTypeEnum;
 import com.matthisd.slacktcl.services.SlackRequestService;
 import com.matthisd.slacktcl.services.StationListService;
 import com.matthisd.slacktcl.services.StationTimesListService;
 import com.matthisd.slacktcl.utils.HandleRequestUtils;
-import org.apache.commons.codec.binary.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -124,9 +123,18 @@ public class SlackRequestController {
         stationTimes.forEach(
                 stationTime -> {
                     if (stationTime.isBusStoppingAndGoingTo(busNumber, direction)) {
-                        result.append(busNumber);
+
+                        if (StringUtils.isEmpty(busNumber)) {
+                            result.append(stationTime.getLigne());
+
+                        } else {
+                            result.append(busNumber);
+                        }
+
                         result.append(" passe dans ");
                         result.append(stationTime.getDelaiPassage());
+                        result.append(" direction ");
+                        result.append(stationTime.getDirection());
                         result.append("\n");
                     }
                 }
