@@ -57,6 +57,10 @@ public class SlackRequestController {
         // Convert to Slack request
         SlackRequest slackRequest = HandleRequestUtils.getSlackRequestFromText(slackRequestMap.get("text"));
 
+        if (slackRequest == null) {
+            return "Une erreur est survenue, merci de réessayer";
+        }
+
         // Save the request in the database
         this.slackRequestService.save(slackRequest);
 
