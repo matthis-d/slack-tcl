@@ -3,6 +3,8 @@ package com.matthisd.slacktcl.domain;
 import com.matthisd.slacktcl.enums.RequestTypeEnum;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 public class SlackRequest {
 
     @Id
@@ -18,25 +20,33 @@ public class SlackRequest {
 
     private String listName;
 
+    private Date createdAt;
+
+    private Date updatedAt;
+
     public SlackRequest() {
+        super();
+        this.type = RequestTypeEnum.TIME_STATION_BUS;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public SlackRequest(String stationName) {
+        this();
         this.stationName = stationName;
-        this.type = RequestTypeEnum.TIME_STATION_BUS;
     }
 
     public SlackRequest(String stationName, String busNumber) {
+        this();
         this.stationName = stationName;
         this.busNumber = busNumber;
-        this.type = RequestTypeEnum.TIME_STATION_BUS;
     }
 
     public SlackRequest(String stationName, String busNumber, String direction) {
+        this();
         this.stationName = stationName;
         this.busNumber = busNumber;
         this.direction = direction;
-        this.type = RequestTypeEnum.TIME_STATION_BUS;
     }
 
     public String getId() {
@@ -52,6 +62,7 @@ public class SlackRequest {
     }
 
     public void setBusNumber(String busNumber) {
+        this.updateMade();
         this.busNumber = busNumber;
     }
 
@@ -60,6 +71,7 @@ public class SlackRequest {
     }
 
     public void setStationName(String stationName) {
+        this.updateMade();
         this.stationName = stationName;
     }
 
@@ -68,6 +80,7 @@ public class SlackRequest {
     }
 
     public void setDirection(String direction) {
+        this.updateMade();
         this.direction = direction;
     }
 
@@ -76,6 +89,7 @@ public class SlackRequest {
     }
 
     public void setType(RequestTypeEnum type) {
+        this.updateMade();
         this.type = type;
     }
 
@@ -84,7 +98,24 @@ public class SlackRequest {
     }
 
     public void setListName(String listName) {
+        this.updateMade();
         this.listName = listName;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
@@ -97,5 +128,9 @@ public class SlackRequest {
         sb.append(", type=").append(type);
         sb.append('}');
         return sb.toString();
+    }
+
+    public void updateMade() {
+        this.setUpdatedAt(new Date());
     }
 }
